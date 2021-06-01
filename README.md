@@ -1,2 +1,2 @@
 # Machine-Learning
- codes and note about machine learning by 
+ codes and note about machine learning 
