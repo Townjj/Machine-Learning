@@ -1,3 +1,8 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+\\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\\)
+
 # Chapter 9 Clustering
 ## 9.1 聚类任务
 聚类(clustering)是一种研究多、应用广的一种无监督学习(unsupervised learning)算法。将数据集中的样本划分为若干不相交子集，每个子集亦称为‘簇’(cluster)。  
