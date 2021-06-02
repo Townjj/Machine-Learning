@@ -69,8 +69,17 @@ $dist\left( \cdot ,\cdot \right)$  是一种距离度量（distance measure）,�
 在属性*u*上两个离散值*a*,*b*之间的VDM距离为：
 $$VDM_p\left( a,b \right) =\sum_{i=1}^k{|\frac{m_{u,a,i}}{m_{u,a}}-\frac{m_{u,b,i}}{m_{u,b}}|^p}$$  
 
-+ 混合属性属性度量——结合闵可夫斯基距离和VDM距离，假设样本集有$n_{c}$个有序属性，$n-n_{c}$个无序属性，则有：
++ 混合属性距离度量——结合闵可夫斯基距离和VDM距离，假设样本集有$n_{c}$个有序属性，$n-n_{c}$个无序属性，则有：
 $$MinkovDM_p\left( \boldsymbol{x}_{\boldsymbol{i}},\boldsymbol{x}_{\boldsymbol{j}} \right) =\left( \sum_{u=1}^{n_c}{|x_{iu}-x_{ju}|^p}+\sum_{u=n_c+1}^n{VDM_p\left( x_{iu}-x_{ju} \right)} \right) ^{\frac{1}{p}}$$
+
+## 9.4 原型聚类
+原型聚类（基于原型的聚类，prototype-based clustering）假设聚类结构可以通过一组原型刻画。原型聚类算法一般先对原型初始化，然后对原型进行更新迭代求解。以下几种为著名的原型聚类算法。  
++ **k 均值算法（k-means）**  
+k均值算法的优化目标是最小化样本集的平方误差：
+$$E=\sum_{i=1}^k{\sum_{x_i\in C_i}{||\boldsymbol{x}-\boldsymbol{\mu }_i||_{2}^{2}}}$$
+平方误差$E$描述了簇内样本围绕均值向量$\boldsymbol{\mu }_i$的紧密程度，平方误差$E$越小，簇内样本越精密。最小化平方误差$E$需要考察所有可能的簇划分（NP难问题），另一可行的方法是对均值向量初始化，采用贪心策略进行迭代优化，直到满足要求。
+
+
 
 
 
