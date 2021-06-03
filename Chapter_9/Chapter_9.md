@@ -32,7 +32,7 @@ $$\boldsymbol{\lambda }=\left( \lambda _1,\lambda _2,...,\lambda _m \right)$$
 &nbsp; 
 + 内部指标（internal index）  
 当聚类划分的簇为$\boldsymbol{C}=\left\{ C_1,C_2,...,C_k \right\}$，定义：  
-样本之间的距离（2-范数/欧式距离）：$$dist\left( \boldsymbol{x}_{\boldsymbol{i}},\boldsymbol{x}_{\boldsymbol{j}} \right) =||\boldsymbol{x}_i-\boldsymbol{x}_j||_2=\sqrt{|\boldsymbol{x}_{i1}-\boldsymbol{x}_{j1}|^2+|\boldsymbol{x}_{i2}-\boldsymbol{x}_{j2}|^2+...+|\boldsymbol{x}_{in}-\boldsymbol{x}_{jn}|^2}$$ 
+样本之间的距离（以2-范数/欧式距离为例）：$$dist\left( \boldsymbol{x}_{\boldsymbol{i}},\boldsymbol{x}_{\boldsymbol{j}} \right) =||\boldsymbol{x}_i-\boldsymbol{x}_j||_2=\sqrt{|\boldsymbol{x}_{i1}-\boldsymbol{x}_{j1}|^2+|\boldsymbol{x}_{i2}-\boldsymbol{x}_{j2}|^2+...+|\boldsymbol{x}_{in}-\boldsymbol{x}_{jn}|^2}$$ 
 簇的中心点：$$\mu =\frac{1}{|C|}\sum_{i=1}^{|C|}{x_i}$$
 簇C内样本间平均距离：$$avg\left( C \right) =\frac{2}{|C|\left( |C|-1 \right)}\sum{dist\left( \boldsymbol{x}_i,\boldsymbol{x}_j \right)}\,\,   ，1\leqslant i<j\leqslant |C|$$ 
 簇C内样本间最远距离：  
@@ -73,8 +73,11 @@ $$MinkovDM_p\left( \boldsymbol{x}_{\boldsymbol{i}},\boldsymbol{x}_{\boldsymbol{j
 + **k 均值算法（k-means）**  
 k均值算法的优化目标是最小化样本集的平方误差：
 $$E=\sum_{i=1}^k{\sum_{x_i\in C_i}{||\boldsymbol{x}-\boldsymbol{\mu }_i||_{2}^{2}}}$$
-平方误差$E$描述了簇内样本围绕均值向量$\boldsymbol{\mu }_i$的紧密程度，平方误差$E$越小，簇内样本越精密。最小化平方误差$E$需要考察所有可能的簇划分（NP难问题），另一可行的方法是对均值向量初始化，采用贪心策略进行迭代优化，直到满足要求。
-
+平方误差$E$描述了簇内样本围绕均值向量$\boldsymbol{\mu }_i$的紧密程度，平方误差$E$越小，簇内样本越精密。最小化平方误差$E$需要考察所有可能的簇划分（NP难问题），另一可行的方法是对均值向量初始化，采用贪心策略进行迭代优化，直到满足要求。  
+&nbsp; 
++ **学习向量量化(Learning Vector Quantization)**  
+LVQ假设可以通过
+ 
 
 
 
