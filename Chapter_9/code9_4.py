@@ -57,6 +57,7 @@ def distance(a,b):
 
 def k_means(data,k=3,iterations=200,m=30):
     '''
+    k-means algorithm
     data        | Training set (including header) 
     k           | Number of clusters 
     iterations  | Training times 
@@ -65,11 +66,15 @@ def k_means(data,k=3,iterations=200,m=30):
     mu_list = np.array([data[i,1:] for i in random.sample(range(1,30),k)])
     
     while iterations:
+
+        #Clustering based on distance between each sample and cluster center vectors
         Clusters = [[],[],[]]
-        for i in range(1,m+1):
+        for i in range(1,m+1): 
             distance_list = [ distance(data[i,1:],mu_list[j]) for j in range(k) ]
             lambda_i = np.argmin(distance_list)
             Clusters[lambda_i].append(data[i,0])
+
+        #update each cluster center vectors based on sample in each cluster
         Clusters_data = [[],[],[]]
         for i in range(k):
             Clusters_data[i] = [data[j,1:] for j in Clusters[i]]
@@ -78,7 +83,7 @@ def k_means(data,k=3,iterations=200,m=30):
     return Clusters,Clusters_data
 
 
-def drawing(drawing_data,k=3):
+def output(drawing_data,k=3):
     '''
     Data visualization 
     drawing_data | Sample set (without header)
@@ -105,4 +110,4 @@ data = load_data40()
 k,iterations,m=3,200,30
 result,drawing_data = k_means(data)
 drawing_data = np.array(drawing_data,dtype=np.dtype)
-drawing(drawing_data=drawing_data)
+output(drawing_data=drawing_data)
