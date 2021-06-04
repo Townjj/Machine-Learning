@@ -91,7 +91,7 @@ def output(drawing_data,k=3):
     '''
     print('k means result:')
     for i in range(k):
-        print('>>>Cluster %d including'%i,result[i],)
+        print('>>>Cluster %d including'%i,result[i])
 
     fig = plt.figure(figsize=(5,5))
     ax1 = fig.add_subplot(1,1,1)

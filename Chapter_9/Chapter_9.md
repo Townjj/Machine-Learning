@@ -3,7 +3,7 @@
 ## 9.1 聚类任务
 聚类(clustering)是一种研究多、应用广的一种无监督学习(unsupervised learning)算法。将数据集中的样本划分为若干不相交子集，每个子集亦称为‘簇’(cluster)。  
 样本集含有m个n维的无标记样本：
-$$D=\left\{ \boldsymbol{x}_1,\boldsymbol{x}_{2,...,}\boldsymbol{x}_m \right\}$$
+$$D=\left\{ \boldsymbol{x}_1,\boldsymbol{x}_{2},...,\boldsymbol{x}_m \right\}$$
 其中 $\boldsymbol{x}_i=\left( x_{i1};x_{i2};...;x_{in} \right)$为n维向量  
 聚类算法运行后将样本集划分为k个不相交的簇：
 $$\left\{ C_l\,\, \mid \,\,l=1,2,...,k \right\}$$
@@ -76,7 +76,20 @@ $$E=\sum_{i=1}^k{\sum_{x_i\in C_i}{||\boldsymbol{x}-\boldsymbol{\mu }_i||_{2}^{2
 平方误差$E$描述了簇内样本围绕均值向量$\boldsymbol{\mu }_i$的紧密程度，平方误差$E$越小，簇内样本越精密。最小化平方误差$E$需要考察所有可能的簇划分（NP难问题），另一可行的方法是对均值向量初始化，采用贪心策略进行迭代优化，直到满足要求。  
 &nbsp; 
 + **学习向量量化(Learning Vector Quantization)**  
-LVQ假设可以通过
+LVQ假设样本带标记，试图找到一组原型向量来刻画聚类结构。  
+LVQ算法的样本集为  
+$$D=\left\{ \left( \boldsymbol{x}_1,y_1 \right) ,\left( \boldsymbol{x}_2,y_2 \right) ,...,\left( \boldsymbol{x}_m,y_m \right) \right\}$$  
+其中 $\boldsymbol{x}_i=\left( x_{i1};x_{i2};...;x_{in} \right)$为 $n$ 维向量  
+LVQ的优化目标是学得 $q$ 个 $n$ 维原型向量：  
+$$\left\{ \boldsymbol{p}_1,\boldsymbol{p}_2,...,\boldsymbol{p}_q \right\}$$
+每个原型向量代表一个聚类簇，簇标记：
+$$\left\{ t_1,t_2,...,t_q \right\}$$
+其中 $t_i$ $\in \boldsymbol{y}$ 。
+
+
+
+
+
  
 
 
