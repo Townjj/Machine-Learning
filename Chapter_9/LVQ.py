@@ -77,13 +77,13 @@ def LVQ(data,learning_rate=0.01,iteration=1000,q=5):
         iteration -= 1
 
     #padding Clusters
-    Clusters = [[],[],[]]
+    Clusters = [[],[],[],[],[]]
     for i in range(1,len(data)):
         distance_list = [distance(data[i ,1:2],prototype_vector[j,0:2]) for j in range(q)]
         nearest_index = np.argmin(distance_list)
         Clusters[nearest_index].append(data[i,0])
     #padding Clusters data to drawing
-    Clusters_data = [[],[],[]]
+    Clusters_data = [[],[],[],[],[]]
     for i in range(q):
         Clusters_data[i] = [data[j,1:3] for j in Clusters[i]]
 
@@ -107,11 +107,13 @@ def output(prototype_vector_result,drawing_data,Clusters,q=5):
     ax1.set_title('LVQ (iteration=1000, learning rate = 0.01)')
     for i in range(q):
         drawing_data[i] = np.array(drawing_data[i],dtype=np.dtype)
-    dot0 = ax1.scatter(drawing_data[0][:,0],drawing_data[0][:,1],c='r',s=150)
-    dot1 = ax1.scatter(drawing_data[1][:,0],drawing_data[1][:,1],c='g',s=150)
-    dot2 = ax1.scatter(drawing_data[2][:,0],drawing_data[2][:,1],c='b',s=150)
+    dot0 = ax1.scatter(drawing_data[0][:,0],drawing_data[0][:,1],c='dimgray',s=150)
+    dot1 = ax1.scatter(drawing_data[1][:,0],drawing_data[1][:,1],c='c',s=150)
+    dot2 = ax1.scatter(drawing_data[2][:,0],drawing_data[2][:,1],c='blueviolet',s=150)
+    dot3 = ax1.scatter(drawing_data[3][:,0],drawing_data[3][:,1],c='gold',s=150)
+    dot4 = ax1.scatter(drawing_data[4][:,0],drawing_data[4][:,1],c='chocolate',s=150)
 
-    plt.legend(handles=[dot0,dot1,dot2],labels=drawing_labels)
+    plt.legend(handles=[dot0,dot1,dot2,dot3,dot4],labels=drawing_labels)
     plt.xlabel('density')
     plt.ylabel('sugercontent')
     plt.show()
