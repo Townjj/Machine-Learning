@@ -84,7 +84,14 @@ LVQ的优化目标是学得 $q$ 个 $n$ 维原型向量：
 $$\left\{ \boldsymbol{p}_1,\boldsymbol{p}_2,...,\boldsymbol{p}_q \right\}$$
 每个原型向量代表一个聚类簇，簇标记：
 $$\left\{ t_1,t_2,...,t_q \right\}$$
-其中 $t_i$ $\in \boldsymbol{y}$ 。
+其中 $t_i$ $\in \boldsymbol{y}$ 。  
+&nbsp; 
++ **高斯混合聚类（Mixture-of-Gaussian）**  
+高斯混合聚类采用概率模型来表达聚类原型。  
+高斯分布定义：对 $n$ 维样本空间 $\boldsymbol{\chi }$ 中的随机向量 $\boldsymbol{x}$ ，若 $\boldsymbol{x}$ 服从高斯分布，其概率密度分布函数为： 
+$$p\left( \boldsymbol{x}|\boldsymbol{\mu },\boldsymbol{\varSigma } \right) =\frac{1}{\left( 2\pi \right) ^{\frac{n}{2}}|\boldsymbol{\varSigma }|^{\frac{1}{2}}}e^{-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{\mu } \right) ^T\boldsymbol{\varSigma }^{-1}\left( \boldsymbol{x}-\boldsymbol{\mu } \right)}$$
+其中 $\boldsymbol{\varSigma }$ 是 $n$x$n$ 维协方差矩阵，$\boldsymbol{\mu }$ 为 $n$ 维均值向量，由 $\boldsymbol{\varSigma }$ 、$\boldsymbol{\mu }$ 可确定高斯分布。
+ 
 
 
 
