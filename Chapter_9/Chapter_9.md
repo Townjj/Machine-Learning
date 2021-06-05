@@ -90,7 +90,27 @@ $$\left\{ t_1,t_2,...,t_q \right\}$$
 高斯混合聚类采用概率模型来表达聚类原型。  
 高斯分布定义：对 $n$ 维样本空间 $\boldsymbol{\chi }$ 中的随机向量 $\boldsymbol{x}$ ，若 $\boldsymbol{x}$ 服从高斯分布，其概率密度分布函数为： 
 $$p\left( \boldsymbol{x}|\boldsymbol{\mu },\boldsymbol{\varSigma } \right) =\frac{1}{\left( 2\pi \right) ^{\frac{n}{2}}|\boldsymbol{\varSigma }|^{\frac{1}{2}}}e^{-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{\mu } \right) ^T\boldsymbol{\varSigma }^{-1}\left( \boldsymbol{x}-\boldsymbol{\mu } \right)}$$
-其中 $\boldsymbol{\varSigma }$ 是 $n$x$n$ 维协方差矩阵，$\boldsymbol{\mu }$ 为 $n$ 维均值向量，由 $\boldsymbol{\varSigma }$ 、$\boldsymbol{\mu }$ 可确定高斯分布。
+其中 $\boldsymbol{\varSigma }$ 是 $n$x$n$ 维协方差矩阵，$\boldsymbol{\mu }$ 为 $n$ 维均值向量，由 $\boldsymbol{\varSigma }$ 、$\boldsymbol{\mu }$ 可确定高斯分布。  
+
+&nbsp; 
+## 9.5 密度聚类  
+密度聚类（density-based clustering）假设聚类结构可以根据样本分布密度确定，并基于可连接样本不断扩展聚类簇。  
++ **Density-based spatical Clustering of application with noise (DBSCAN)**  
+DBSCAN是一种著名的密度聚类算法，使用两个邻域参数（$\epsilon \,,\,MinPts$）来描述一组领域（neigh-borhood），用以刻画样本分布的紧密程度。有如下定义：   
+$\epsilon\,$-邻域：在样本集D中，样本 $x_{i}$ 的邻域包含在样本集D中与样本 $x_{i}$ 距离不大于$\epsilon\,$的样本：
+$$N_{\epsilon}\left( \boldsymbol{x}_i \right) =\left\{ \boldsymbol{x}_j\in D\,\, \mid \,\,dist\left( \boldsymbol{x}_i,\boldsymbol{x}_j \right) \leqslant \epsilon \right\}$$
+$MinPts$：若样本 $\boldsymbol{x}_i$ 的 $\epsilon\,$-邻域内样本数量大于$MinPts$，则 $\boldsymbol{x}_i$ 是一个核心对象（core object）:  
+$$|N_{\epsilon}\left( \boldsymbol{x}_i \right) | \geqslant MinPts,\ \  \boldsymbol{x}_i 为核心对象$$
+密度直达：$\boldsymbol{x}_j$ 在 $\boldsymbol{x}_i$ 邻域内，称 $\boldsymbol{x}_j$ 可由 $\boldsymbol{x}_i$ 密度直达。  
+密度可达：$\boldsymbol{x}_j$ 可通过一个或多个中间样本（链式间接直达）对 $\boldsymbol{x}_i$ 密度直达，称 $\boldsymbol{x}_j$ 可由 $\boldsymbol{x}_i$ 密度可达。  
+密度相连：样本 $\boldsymbol{x}_i$ 与 $\boldsymbol{x}_j$ 可通过中间样本 $\boldsymbol{x}_k$ 密度可达，称 $\boldsymbol{x}_i$ 与 $\boldsymbol{x}_j$ 密度相连。  
+簇：有密度可达关系导出的最大密度相连的样本集合。将所有与 $\boldsymbol{x}_i$ 密度相连的样本划分为一个簇。
+
+
+
+
+
+
  
 
 
