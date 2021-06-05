@@ -104,7 +104,27 @@ $$|N_{\epsilon}\left( \boldsymbol{x}_i \right) | \geqslant MinPts,\ \  \boldsymb
 密度直达：$\boldsymbol{x}_j$ 在 $\boldsymbol{x}_i$ 邻域内，称 $\boldsymbol{x}_j$ 可由 $\boldsymbol{x}_i$ 密度直达。  
 密度可达：$\boldsymbol{x}_j$ 可通过一个或多个中间样本（链式间接直达）对 $\boldsymbol{x}_i$ 密度直达，称 $\boldsymbol{x}_j$ 可由 $\boldsymbol{x}_i$ 密度可达。  
 密度相连：样本 $\boldsymbol{x}_i$ 与 $\boldsymbol{x}_j$ 可通过中间样本 $\boldsymbol{x}_k$ 密度可达，称 $\boldsymbol{x}_i$ 与 $\boldsymbol{x}_j$ 密度相连。  
-簇：有密度可达关系导出的最大密度相连的样本集合。将所有与 $\boldsymbol{x}_i$ 密度相连的样本划分为一个簇。
+簇：有密度可达关系导出的最大密度相连的样本集合。将所有与 $\boldsymbol{x}_i$ 密度相连的样本划分为一个簇。  
+&nbsp; 
+## 9.6 层次聚类  
+层次聚类（hierarchical clustering）识图在不同层次对数据集进行划分，通过‘自底向上’的聚合策略或者‘自顶向下’的分拆策略来形成树状的聚类结构。 
++ **AGglomerative  NESting**  
+AGNES采用自底向上的策略，先将每个样本都看成是一个聚类簇，每一步优化中根据距离最近原则将两个距离最近的簇合并，直到达到设定的簇个数。  
+每个聚类簇视为样本集合，集合 $X$, $Z$ 之间距离常用*豪斯多夫距离（Hausdorff distance）**计算：
+$$dist_H\left( X,Z \right) =\max \left( dist_h\left( X,Z \right) ,dist_h\left( Z,X \right) \right)$$
+$$dist_h\left( X,Z \right) =\underset{\boldsymbol{x}\in X}{\max}\,\,\underset{\boldsymbol{z}\in Z}{\min}||\boldsymbol{x}-\boldsymbol{z}||_2\,\,$$    
+对于给定的聚类簇 $C_i$ 及 $C_j$ 可通过三种方式计算距离,（dist(，)为豪斯多夫距离）：  
+
+|种类|表达式|  
+| :---: | :---: |   
+| 最小距离 | $d_{\min}\left( C_i,C_j \right) =\underset{\boldsymbol{x}\in C_i,\boldsymbol{z}\in C_j}{\min}dist\left( \boldsymbol{x},\boldsymbol{z} \right)$ |
+|最大距离|$d_{\max}\left( C_i,C_j \right) =\underset{\boldsymbol{x}\in C_i,\boldsymbol{z}\in C_j}{\max}dist\left( \boldsymbol{x},\boldsymbol{z} \right)$|
+|平均距离|$d_{avg}\left( C_i,C_j \right) =\sum_{\boldsymbol{x}\in C_i}{\sum_{\boldsymbol{z}\in C_j}{dist\left( \boldsymbol{x},\boldsymbol{z} \right)}}$ |
+
+
+
+
+
 
 
 
