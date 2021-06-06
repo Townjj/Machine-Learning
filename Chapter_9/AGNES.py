@@ -80,11 +80,15 @@ def dist(x,z):
 def min_dist(c1,c2):
     return min(dist(i,j) for i in c1 for j in c2)
 
+def max_dist(c1,c2):
+    return max(dist(i,j) for i in c1 for j in c2)
+
 def AGNES_main(data,k):
     '''
     main function of AGNES
-    data   | data include head and no.
-    k      | num of target clusters
+    data        | data include head and no.
+    k           | num of target clusters
+    distance_arr| array of distance above each two clusters
     '''
     m = len(data)-1
     Clusters = [[data[i,0]] for i in range(1,m+1)]
@@ -93,8 +97,9 @@ def AGNES_main(data,k):
     for i in range(m):
         for j in range(m):
             if i != j:
-                distance_arr[i,j] = min_dist(Clusters[i],Clusters[j])
+                distance_arr[i,j] = max_dist(Clusters[i],Clusters[j])
                 distance_arr[j,i] = distance_arr[i,j]
+    #find the nearest diatance between two clusters and conbine & delete origin clusters       
     q = len(Clusters)
     while q > k :
         min_index = np.where(distance_arr == np.min( distance_arr))
@@ -103,13 +108,43 @@ def AGNES_main(data,k):
         del Clusters[min_indexj]
         distance_arr = np.delete(distance_arr,min_indexj,axis=0)
         distance_arr = np.delete(distance_arr,min_indexj,axis=1)
-        for j in range(1,q-2):
-            distance_arr[min_indexi,j] = min_dist(Clusters[min_indexi],Clusters[j])
-            distance_arr[j,min_indexi] = distance_arr[min_indexi,j]
+        for j in range(q-1):
+            if min_indexi != j:
+                distance_arr[min_indexi,j] = max_dist(Clusters[min_indexi],Clusters[j])
+                distance_arr[j,min_indexi] = distance_arr[min_indexi,j]
         q -= 1
-    print(Clusters)
     return Clusters
 
 
+def output(data,Clusters):
+    '''
+    to print & drawing result of DBSCAN
+    drawing_data | above whole data in each clusters without head
+    Clusters     | result of AGNES only have no. 
+    '''
+    #print
+    k = len(Clusters)
+    print('AGNES result:')
+    for i in range(k):
+        print('>>>Cluster %d including'%i,Clusters[i])
+
+    #drawing 
+    drawing_data = []
+    for i in range(k):
+        drawing_data.insert(i ,np.array([data[j,1:3] for j in Clusters[i]],dtype=np.dtype))
+    fig = plt.figure(figsize=(5,5))
+    ax1 = fig.add_subplot(1,1,1)
+    ax1.set_title('AGNES (d_max  k=5)')
+    dot0 = ax1.scatter(drawing_data[0][:,0],drawing_data[0][:,1],c='chocolate',s=2000,alpha=0.8)
+    dot1 = ax1.scatter(drawing_data[1][:,0],drawing_data[1][:,1],c='c',s=2000,alpha=0.8)
+    dot2 = ax1.scatter(drawing_data[2][:,0],drawing_data[2][:,1],c='blueviolet',s=2000,alpha=0.8)
+    dot3 = ax1.scatter(drawing_data[3][:,0],drawing_data[3][:,1],c='gold',s=2000,alpha=0.8)
+    dot4 = ax1.scatter(drawing_data[4][:,0],drawing_data[4][:,1],c='dimgray',s=2000,alpha=0.8)
+    plt.xlabel('density')
+    plt.ylabel('sugercontent')
+    plt.show()
+
+
 data = load_data40()
-AGNES_main(data,k=7)
+Clusters = AGNES_main(data,k=5)
+output(data,Clusters)
