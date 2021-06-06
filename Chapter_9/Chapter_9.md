@@ -87,10 +87,34 @@ $$\left\{ t_1,t_2,...,t_q \right\}$$
 其中 $t_i$ $\in \boldsymbol{y}$ 。  
 &nbsp; 
 + **高斯混合聚类（Mixture-of-Gaussian）**  
-高斯混合聚类采用概率模型来表达聚类原型。  
+高斯混合聚类采用概率模型（高斯分布）来表达聚类原型。簇划分由原型对应的后验概率确定。  
 高斯分布定义：对 $n$ 维样本空间 $\boldsymbol{\chi }$ 中的随机向量 $\boldsymbol{x}$ ，若 $\boldsymbol{x}$ 服从高斯分布，其概率密度分布函数为： 
 $$p\left( \boldsymbol{x}|\boldsymbol{\mu },\boldsymbol{\varSigma } \right) =\frac{1}{\left( 2\pi \right) ^{\frac{n}{2}}|\boldsymbol{\varSigma }|^{\frac{1}{2}}}e^{-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{\mu } \right) ^T\boldsymbol{\varSigma }^{-1}\left( \boldsymbol{x}-\boldsymbol{\mu } \right)}$$
 其中 $\boldsymbol{\varSigma }$ 是 $n$x$n$ 维协方差矩阵，$\boldsymbol{\mu }$ 为 $n$ 维均值向量，由 $\boldsymbol{\varSigma }$ 、$\boldsymbol{\mu }$ 可确定高斯分布。  
+引入混合系数 $\alpha _i$ （$\alpha _i>0 且  \sum_{i=1}^k{\alpha _i}=1$）组成高斯混合成分布 $\alpha _i\cdot p\left( \boldsymbol{x}|\boldsymbol{\mu },\boldsymbol{\varSigma } \right)$ ，定义高斯混合分布：
+$$p_M\left( \boldsymbol{x} \right) =\sum_{i=1}^k{\alpha _i}\cdot p\left( \boldsymbol{x}|\boldsymbol{\mu },\boldsymbol{\varSigma } \right)$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 &nbsp; 
 ## 9.5 密度聚类  
