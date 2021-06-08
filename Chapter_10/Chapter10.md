@@ -25,6 +25,31 @@ $$\mathbf{\Lambda }=\mathrm{diag}\left( \lambda _1,\lambda _2,...,\lambda _d \ri
 现实用只需降维后空间与原始空间内的样本距离尽可能接近，可选取$d'$个最大非零特征值（$d'\gg d$），构成特征值对角矩阵$\overset{\sim}{\mathbf{\Lambda }}$，及其对应特征向量矩阵$\overset{\sim}{\mathbf{V}}$，可得到降维后的样本集：
 $$\mathbf{Z}=\overset{\sim}{\mathbf{\Lambda }}^{\frac{1}{2}}\overset{\sim}{\mathbf{V}^T}\text{，}\mathbf{Z}\in \mathrm{R}^{d'\times m}$$  
 
+欲获得低维子空间，最简单的办法是对原始高维空间进行线性变换，原始高维样本空间$\mathbf{X}$包含m个d维样本，通过包含变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$），可得到降维后的具有m个$d'$维样本的样本空间$\mathbf{Z}$，过程如下图：
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210608211843.png)  
+&nbsp; 
+## 10.3 主成成分分析
+主成成分分析（Principal Component Analysis,PCA）是常用的一种降维方法，要求降维后的样本空间对样本具有最大可分性，并用一个超平面对所有样本进行表达。PCA在线性降维时，需要基于最近重构性和最大可分性对变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$）约束。 
+>PCA中由最大可分性出发推导降维变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$）  
+要使投影后样本点$\text{（}x_i\Rightarrow \mathbf{W}^{\mathrm{T}}x_i\text{）}$具有最大可分性，即样本方差最大。样本协方差矩阵为：
+$$\sum_i{\mathbf{W}^{\mathrm{T}}x_ix_{i}^{T}\mathbf{W}}$$  
+优化目标为：
+$$\underset{\mathbf{W}}{\max}\,\,\mathrm{tr}\left( \mathbf{W}^{\mathrm{T}}\mathbf{XX}^{\mathrm{T}}\mathbf{W} \right)$$
+$$s.t.\ \   \mathbf{W}^{\mathrm{T}}\mathbf{W}=\mathbf{I}$$
+使用拉格朗日乘子法：
+$$\mathbf{XX}^{\mathrm{T}}\boldsymbol{\omega }_i=\lambda _i\boldsymbol{\omega }_i$$
+对协方差矩阵$\mathbf{XX}^{\mathrm{T}}$进行特征值分解得到特征值：
+$\lambda _1,\lambda _2,...,\lambda _d \ ,\text{（}\lambda _1\geqslant \lambda _2\geqslant ...\geqslant \lambda _d\text{）}$  
+取前$d'$个特征值对应的特征向量构成变换矩阵（投影矩阵）$\mathbf{W}^*$:
+$$\mathbf{W}^*=\left( \boldsymbol{\omega }_1\text{，}\boldsymbol{\omega }_2\text{，}...\text{，}\boldsymbol{\omega }_{d'} \right)$$
+至此已得到高维到低维的转换矩阵$\mathbf{W}^*$，推导完成  
+
+&nbsp; 
+## 10.4 核化线性降维
+
+
+
 
 
 
