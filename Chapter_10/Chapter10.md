@@ -49,10 +49,23 @@ $$\mathbf{W}^*=\left( \boldsymbol{\omega }_1\text{，}\boldsymbol{\omega }_2\tex
 
 &nbsp; 
 ## 10.4 核化线性降维
+线性降维方法中假设从高维到低维的映射是线性的，不少机器学习任务中需要非线性映射到低维空间中才能找到合适的低维嵌入。将原本采样的低维空间称为本真（intrinsic）低维空间。
+基于核函数（核技巧）对线性降维方法进行非线性降维是一种常用方法。  
++ 核组成成分分析算法（Kernel PCA，KPCA）  
+KPCA的解决思路是将原始样本空间中的$\boldsymbol{x}_{i\,\,}$通过映射函数$\phi \left( \cdot \right)$映射到高维特征空间中，在高维特征空间中实施PCA算法即可（通过核函数计算内积）。  
+由$\mathbf{XX}^{\mathrm{T}}\boldsymbol{\omega }_i=\lambda _i\boldsymbol{\omega }_i$，对于投影矩阵中$\mathbf{W}=\left( \boldsymbol{\omega }_1\text{，}\boldsymbol{\omega }_2\text{，}...\text{，}\boldsymbol{\omega }_{d'} \right)$中的$\boldsymbol{\omega }_j$，有
+$$\left( \sum_{i=1}^m{\boldsymbol{z}_i\boldsymbol{z}_{i}^{\mathrm{T}}} \right) \boldsymbol{\omega }_j=\lambda _i\boldsymbol{\omega }_j$$  
+其中${z}_{i}$是本真结构中的样本点$\boldsymbol{x}_{i\,\,}$映射到高维特征空间的像，将$\boldsymbol{\omega }_j$（i表示样本序号，j表示第j维）表示为
+$$\boldsymbol{\omega }_j=\sum_{i=1}^m{\boldsymbol{z}_i\alpha _{i}^{j}}, \ 其中\alpha _{i}^{j}=\frac{1}{\lambda _j}\boldsymbol{z}_{i}^{\mathrm{T}}\boldsymbol{\omega }_j$$
+引入映射函数$\phi \left( \cdot \right)$得到：  
+$$\boldsymbol{\omega }_j=\sum_{i=1}^m{\phi \left( \boldsymbol{x}_i \right) \alpha _{i}^{j}}$$
+引入核函数$k\left( \boldsymbol{x}_i,\boldsymbol{x}_j \right) =\phi \left( \boldsymbol{x}_i \right) ^{\mathrm{T}}\phi \left( \boldsymbol{x}_j \right)$后化简得到： 
+$$\mathbf{K}\boldsymbol{\alpha }^j=\lambda _j\boldsymbol{\alpha }^j$$
+其中$\mathbf{K}$为核矩阵，$\left( \mathbf{K} \right) _{ij}=k\left( \boldsymbol{x}_i,\boldsymbol{x}_j \right)$，$\boldsymbol{\alpha }^j=\left( \alpha _{1}^{j};\alpha _{2}^{j},...,\alpha _{m}^{j} \right)$，对核矩阵$\mathbf{K}$进行特征值分解，取前$d'$大的特征值对应的特征向量即可。
 
 
-
-
+&nbsp; 
+## 10.5 流形学习
 
 
 
