@@ -24,10 +24,12 @@ $$\mathbf{B}=\mathbf{V\Lambda V}^T$$
 $$\mathbf{\Lambda }=\mathrm{diag}\left( \lambda _1,\lambda _2,...,\lambda _d \right) \,\, ,(\lambda _1\geqslant \lambda _2\geqslant ...\geqslant \lambda _d)$$
 现实用只需降维后空间与原始空间内的样本距离尽可能接近，可选取$d'$个最大非零特征值（$d'\gg d$），构成特征值对角矩阵$\overset{\sim}{\mathbf{\Lambda }}$，及其对应特征向量矩阵$\overset{\sim}{\mathbf{V}}$，可得到降维后的样本集：
 $$\mathbf{Z}=\overset{\sim}{\mathbf{\Lambda }}^{\frac{1}{2}}\overset{\sim}{\mathbf{V}^T}\text{，}\mathbf{Z}\in \mathrm{R}^{d'\times m}$$  
+至此，低维子空间$\mathbf{Z}$已推导完成。  
 
 欲获得低维子空间，最简单的办法是对原始高维空间进行线性变换，原始高维样本空间$\mathbf{X}$包含m个d维样本，通过包含变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$），可得到降维后的具有m个$d'$维样本的样本空间$\mathbf{Z}$，过程如下图：
 
-![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210608211843.png)  
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210609104148.png)
+
 &nbsp; 
 ## 10.3 主成成分分析
 主成成分分析（Principal Component Analysis,PCA）是常用的一种降维方法，要求降维后的样本空间对样本具有最大可分性，并用一个超平面对所有样本进行表达。PCA在线性降维时，需要基于最近重构性和最大可分性对变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$）约束。 
