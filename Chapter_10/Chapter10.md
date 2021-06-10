@@ -33,7 +33,7 @@ $$\mathbf{Z}=\overset{\sim}{\mathbf{\Lambda }}^{\frac{1}{2}}\overset{\sim}{\math
 &nbsp; 
 ## 10.3 主成成分分析
 主成成分分析（Principal Component Analysis,PCA）是常用的一种降维方法，要求降维后的样本空间对样本具有最大可分性，并用一个超平面对所有样本进行表达。PCA在线性降维时，需要基于最近重构性和最大可分性对变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$）约束。 
->PCA中由最大可分性出发推导降维变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$）  
+PCA中由最大可分性出发推导降维变换矩阵$\mathbf{W}$（$\mathbf{W}\in \mathrm{R}^{d\times d'}$）  
 要使投影后样本点$\text{（}x_i\Rightarrow \mathbf{W}^{\mathrm{T}}x_i\text{）}$具有最大可分性，即样本方差最大。样本协方差矩阵为：
 $$\sum_i{\mathbf{W}^{\mathrm{T}}x_ix_{i}^{T}\mathbf{W}}$$  
 优化目标为：
