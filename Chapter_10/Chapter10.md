@@ -41,8 +41,7 @@ $$\underset{\mathbf{W}}{\max}\,\,\mathrm{tr}\left( \mathbf{W}^{\mathrm{T}}\mathb
 $$s.t.\ \   \mathbf{W}^{\mathrm{T}}\mathbf{W}=\mathbf{I}$$
 使用拉格朗日乘子法：
 $$\mathbf{XX}^{\mathrm{T}}\boldsymbol{\omega }_i=\lambda _i\boldsymbol{\omega }_i$$
-对协方差矩阵$\mathbf{XX}^{\mathrm{T}}$进行特征值分解得到特征值：
-$\lambda _1,\lambda _2,...,\lambda _d \ ,\text{（}\lambda _1\geqslant \lambda _2\geqslant ...\geqslant \lambda _d\text{）}$  
+对协方差矩阵$\mathbf{XX}^{\mathrm{T}}$进行特征值分解得到特征值：$\lambda _1,\lambda _2,...,\lambda _d \ ,\text{（}\lambda _1\geqslant \lambda _2\geqslant ...\geqslant \lambda _d\text{）}$  
 取前$d'$个特征值对应的特征向量构成变换矩阵（投影矩阵）$\mathbf{W}^*$:
 $$\mathbf{W}^*=\left( \boldsymbol{\omega }_1\text{，}\boldsymbol{\omega }_2\text{，}...\text{，}\boldsymbol{\omega }_{d'} \right)$$
 至此已得到高维到低维的转换矩阵$\mathbf{W}^*$，推导完成  
