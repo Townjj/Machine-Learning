@@ -7,7 +7,7 @@
 前向搜索的算法如下：  
 
     Input:  
-        特征集 $$\left\{ a_1,a_2,...,a_{\mathrm{d}}\right\}$$
+        特征集$\left\{ a_1,a_2,...,a_{\mathrm{d}} \right\}$
     Do:
         将每个特征视为一个属性子集
     Repeat：
@@ -20,5 +20,28 @@
         最优特征子集
 
 ### 子集评价（subset evaluation）
+对每个特征，使用信息增益进行评价后选择最优特征。  
+假定数据集D中第i类样本所占比例为 $p_i$ ，对属性子集A，当前特征有V个取值时，根据样本取值将样本集D分成了V个子集$\left\{ D^1,D^2,...,D^V \right\}$，每个子集中样本在属性子集A中取值相同，计算属性子集A的信息增益为：
+$$Gain\left( A \right) =Ent\left( D \right) -\sum_{v=1}^V{\frac{\left| D^V \right|}{\left| D \right|}}Ent\left( D^V \right)$$
+其中信息熵定义为：
+$$Ent\left( D \right) =-\sum_{k=1}^{\left| y \right|}{p_k\log _2}p_k$$
+其中$|y|$表示样本集D在属性集A中特征类别的数量。
+信息增益$Gain\left( A \right)$越大，则特征子集A包含有助于分类的信息越多，对每个候选特征子集D进行评价，选取信息增益最大的候选特征子集作为最优特征子集。
     
-    
+  
+&nbsp;  
+## 特征选择方法 = 特征子集搜索机制 + 子集评价机制
+常见特征选择方法可以分为：过滤式（filter）、包裹式（wrapper）、嵌入式（embedding）
+
+
+&nbsp;  
+## 2.过滤式选择
+过滤式选择方法先对数据集进行特征选择，然后再训练学习器，特征选择的过程与学习器无关。  
+Relif(Relevant feature)算法设定“相关统计量”来度量特征重要性，相关统计量（向量）的每个分量对应一个特征，特征子集的重要性由子集中特征对应的相关统计量分量之和来决定。可设置阈值或欲选取的特征个数来筛选最优特征。
+Relif算法流程如下：
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210615222320.png)
+
+容易看成，$\delta ^j$越大，对应属性的分类能力就越强。
+
+&nbsp;  
+## 3.包裹式选择
