@@ -41,7 +41,20 @@ Relif(Relevant feature)算法设定“相关统计量”来度量特征重要性
 Relif算法流程如下：
 ![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210615222320.png)
 
-容易看成，$\delta ^j$越大，对应属性的分类能力就越强。
+容易看出，$\delta ^j$越大，对应属性的分类能力就越强。
 
 &nbsp;  
-## 3.包裹式选择
+## 3.包裹式选择  
+包裹式选择直接将学习器的性能作为特征子集的评价指标，给学习器量身定做最优特征子集。  
+**LVW (Las Vegas Wrapper)** 使用随机策略进行子集搜索，将最终分类器（学习器）的误差作为特征子集的评价指标。
+先随机产生特征子集A，通过交叉验证估计学习误差，不断更新（误差更小的特征子集）或（误差相等但子集内特征数更少的特征子集）作为最优子集，直到连续 T 轮不再更新。
+
+&nbsp;  
+## 4.嵌入式选择与L1正则化
+嵌入式选择将特征选择与学习器训练融合在一起，共同在同一个优化过程中完成。
+在简单的线性回归模型中，以平方误差为损失函数时，当样本特征过多容易过拟合，加入$L_2$范数正则化项后的优化目标为：  
+$$\underset{\boldsymbol{\omega }}{\min}\,\,\sum_{i=1}^m{\left( y_i-\boldsymbol{\omega }^{\mathrm{T}}x_i \right) ^2+\lambda ||\boldsymbol{\omega }||_{2}^{2}}$$ 
+其中正则化系数$\lambda >0$，上式称为**岭回归（ridge regression）**。  
+将$L_2$范数正则化项推广为$L_p$范数正则化项，当p=1时，采用$L_1$范数正则化项的优化目标为：  
+$$\underset{\boldsymbol{\omega }}{\min}\,\,\sum_{i=1}^m{\left( y_i-\boldsymbol{\omega }^{\mathrm{T}}x_i \right) ^2+\lambda ||\boldsymbol{\omega }||_{1}^{\,\,}}$$其中正则化系数$\lambda >0$，上式称为LASSO（Least Absolute Shrinkage and Selection Operator,最小绝对收缩选择算子）。
+$L_1$范数正则化及$L_2$范数正则化都可以降低过拟合风险，但$L_1$范数正则化的突出优势是更易获得稀疏解，即求得的向量$\boldsymbol{\omega }$将含有更多的零分量，零向量对应的特征被剔除。换言之，基于$L_1$范数正则化的学习方法是一种嵌入式特征选择方法，其特征选择过程与学习器训练过程融为一体，共同完成。
