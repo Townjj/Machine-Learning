@@ -58,3 +58,4 @@ $$\underset{\boldsymbol{\omega }}{\min}\,\,\sum_{i=1}^m{\left( y_i-\boldsymbol{\
 将$L_2$范数正则化项推广为$L_p$范数正则化项，当p=1时，采用$L_1$范数正则化项的优化目标为：  
 $$\underset{\boldsymbol{\omega }}{\min}\,\,\sum_{i=1}^m{\left( y_i-\boldsymbol{\omega }^{\mathrm{T}}x_i \right) ^2+\lambda ||\boldsymbol{\omega }||_{1}^{\,\,}}$$其中正则化系数$\lambda >0$，上式称为LASSO（Least Absolute Shrinkage and Selection Operator,最小绝对收缩选择算子）。
 $L_1$范数正则化及$L_2$范数正则化都可以降低过拟合风险，但$L_1$范数正则化的突出优势是更易获得稀疏解，即求得的向量$\boldsymbol{\omega }$将含有更多的零分量，零向量对应的特征被剔除。换言之，基于$L_1$范数正则化的学习方法是一种嵌入式特征选择方法，其特征选择过程与学习器训练过程融为一体，共同完成。
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/PGD.png)
