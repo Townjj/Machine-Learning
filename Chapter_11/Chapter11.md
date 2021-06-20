@@ -59,3 +59,54 @@ $$\underset{\boldsymbol{\omega }}{\min}\,\,\sum_{i=1}^m{\left( y_i-\boldsymbol{\
 $$\underset{\boldsymbol{\omega }}{\min}\,\,\sum_{i=1}^m{\left( y_i-\boldsymbol{\omega }^{\mathrm{T}}x_i \right) ^2+\lambda ||\boldsymbol{\omega }||_{1}^{\,\,}}$$其中正则化系数$\lambda >0$，上式称为LASSO（Least Absolute Shrinkage and Selection Operator,最小绝对收缩选择算子）。
 $L_1$范数正则化及$L_2$范数正则化都可以降低过拟合风险，但$L_1$范数正则化的突出优势是更易获得稀疏解，即求得的向量$\boldsymbol{\omega }$将含有更多的零分量，零向量对应的特征被剔除。换言之，基于$L_1$范数正则化的学习方法是一种嵌入式特征选择方法，其特征选择过程与学习器训练过程融为一体，共同完成。
 ![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/PGD.png)
+
+&nbsp;  
+## 5.稀疏表示与字典学习  
+将样本集D看成一个矩阵，每行表示一个样本，每列对应一个特征。通过特征选择方法去除与学习任务无关的列可以降低学习难度，减少计算开销。在文档分类任务中，将每个文档作为一个样本，将每个字（词）作为一个特征，行列交汇处为该列字在该文档中出现的次数，于是矩阵每一行内都含有大量零元素，但又不是出现在同一列。如下图：  
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210618145821.png)
+   
+当每个样本具有大量零元素时，称为稀疏表达形式，稀疏表达形式对机器学习有很大好处，可使很多问题线性可分，亦可高效储存稀疏矩阵。  
+**字典学习（dictionary learning）/ 稀疏编码（sparse coding）**：为普通稠密的样本集找到合适的字典以转化为稀疏表达形式。字典亦称为码书（codebook）。  
+字典学习的简单形式是：  
+$$\min_{\mathbf{B},\boldsymbol{\alpha }_i} \sum_{i=1}^m{\left\| \boldsymbol{x}_i-\mathbf{B}\boldsymbol{\alpha }_i \right\| _{2}^{2}}+\lambda \sum_{i=1}^m{\left\| \boldsymbol{\alpha }_i \right\| _1}$$
+其中$\mathbf{B}$为字典矩阵（d x k型），$\boldsymbol{\alpha }_i$（k 维） 为样本 $\boldsymbol{x}_i$ （d 维）的稀疏表示。容易看出，第一项中希望稀疏表示 $\boldsymbol{\alpha }_i$ 通过字典矩阵重构后能与原先的样本 $\boldsymbol{x}_i$ 尽可能相近；第二项希望稀疏表示 $\boldsymbol{\alpha }_i$ 尽可能稀疏。  
+使用变量交替优化来更新上式：  
+第一步先固定字典B，更新$\boldsymbol{\alpha }_i$，为每个样本找到对应的$\boldsymbol{\alpha }_i$：
+$$\min_{\boldsymbol{\alpha }_i} \left\| \boldsymbol{x}_i-\mathbf{B}\boldsymbol{\alpha }_i \right\| _{2}^{2}+\lambda \left\| \boldsymbol{\alpha }_i \right\| _1$$
+第二步用$\boldsymbol{\alpha }_i$的初值来更新字典B：
+$$\min_{\mathbf{B}} \left\| \boldsymbol{X}-\mathbf{B}\boldsymbol{A} \right\| _{F}^{2}$$
+其中$\boldsymbol{X}=\left( \boldsymbol{x}_1,\boldsymbol{x}_2,...,\boldsymbol{x}_m \right)$（dxm）, $\boldsymbol{A}=\left( \boldsymbol{\alpha }_1,\boldsymbol{\alpha }_2,...,\boldsymbol{\alpha }_m \right) \,\,$(kxm), $\left\| \cdot \right\| _{F}^{\,\,}$是矩阵的Frobenius范数。  
+求解第二步，常用基于逐列更新策略的KSVD，令$b_i$表示矩阵B第i列，令$\boldsymbol{\alpha }^i$表示矩阵A第i行，第二步重写为：
+$$\min_{\mathbf{B}} \left\| \boldsymbol{X}-\mathbf{B}\boldsymbol{A} \right\| _{F}^{2}$$
+$$=\underset{b_i}{\min}\left\| \boldsymbol{X}-\sum_{j=1}^k{\boldsymbol{b}_j\boldsymbol{\alpha }^j} \right\| _{F}^{2}$$
+$$=\underset{b_i}{\min}\left\| \left( \boldsymbol{X}-\sum_{j\ne i}^{\,\,}{\boldsymbol{b}_j\boldsymbol{\alpha }^j} \right) -\boldsymbol{b}_i\boldsymbol{\alpha }^i \right\| _{F}^{2}$$
+$$=\underset{b_i}{\min}\left\| \boldsymbol{E}_i-\boldsymbol{b}_i\boldsymbol{\alpha }^i \right\| _{F}^{2}$$
+更新第二步中的字典时，由于其他列固定，即$\boldsymbol{E}_i$也固定，原则上对$\boldsymbol{E}_i$进行奇异值分解取得最大奇异值对应的正交向量即可，但直接对$\boldsymbol{E}_i$进行奇异值分解会修改$b_i$，$\boldsymbol{\alpha }^i$，从而破坏A的稀疏性。KSVD对$\boldsymbol{E}_i$和$\boldsymbol{\alpha }^i$专门处理：$\boldsymbol{\alpha }^i$仅保留非零元素，$\boldsymbol{E}_i$则仅保留$b_i$与$\boldsymbol{\alpha }^i$零元素的累计项，然后再进行奇异值分解，即可保证稀疏的同时，通过对$\boldsymbol{E}_i$进行奇异值分解以使上式最小化。  
+最小化字典矩阵B，先初始化B，再迭代运行上述两步，即可求出B和$\boldsymbol{\alpha }_i$。  
+
+&nbsp;  
+## 6.压缩感知
+压缩感知关注于如何将接收到的信号重构出原信号。
+假设原始离散信号 x 的长度为 m，假定以远小于奈奎斯特采样定理的要求采样得到长度为 n 的信号 y，n << m,即有：
+$$\boldsymbol{y}=\mathbf{\Phi }\boldsymbol{x}$$ 
+其中 $\mathbf{\Phi }$（nxm）是采样矩阵。   
+显然，若已知 $\mathbf{\Phi }$，$x$ 时容易得出 $y$；但难从 $y$ ，$\mathbf{\Phi }$ 得到原始信号 $x$，因为n << m，$\boldsymbol{y}=\mathbf{\Phi }\boldsymbol{x}$ 是一个欠定方程。  
+若假设一个线性变换$\mathbf{\Psi }\in \mathbf{R}^{m\times m}$，$\mathbf{\Psi }$称为稀疏基，使得：
+$$\boldsymbol{y}=\mathbf{\Phi }\boldsymbol{x}=\mathbf{\Phi \Psi }\boldsymbol{s}=\mathbf{A}\boldsymbol{s}$$
+其中$\mathbf{A}=\mathbf{\Phi \Psi }\in \mathbf{R}^{n\times m}$，作用类似字典，将信号转换为稀疏表示。当$\boldsymbol{s}$具有稀疏性，则能根据$\boldsymbol{y}$恢复出$\boldsymbol{s}$（因为稀疏性排除了很多未知因素），进而通过$\,\,\boldsymbol{x}=\mathbf{\Psi }\boldsymbol{s}$恢复原信号$\boldsymbol{x}$。             
+对于大小为nxm的矩阵A，若存在常数$\delta _k\in \left( 0,1 \right)$，使得任意向量$\boldsymbol{s}$和A的所有子矩阵$\boldsymbol{A}_k\in \mathrm{R}^{n\times k}$满足：
+$$\left( 1-\delta _k \right) \left\| \boldsymbol{s} \right\| _{2}^{2}\leqslant \left\| \boldsymbol{A}_k-\boldsymbol{s} \right\| _{2}^{2}\leqslant \left( 1+\delta _k \right) \left\| \boldsymbol{s} \right\| _{2}^{2}$$
+则称A满足k限定等距性（k-RIP），A满足此特性时，可通过从下式优化，从y中恢复出稀疏信号s,进而恢复出原始信号x:
+$$\underset{s}{\min}\left\| \boldsymbol{s} \right\| _0$$
+$$s.t. \ \boldsymbol{y}=\mathbf{A}\boldsymbol{s}\,\,$$
+L0范数最小化式NP难问题，L1范数最小化再一定条件下与L0范数最小化同解，只需关注：
+$$\underset{s}{\min}\left\| \boldsymbol{s} \right\| _1$$
+$$s.t.   \ \boldsymbol{y}=\mathbf{A}\boldsymbol{s}\,\,$$
+至此，压缩感知的问题可以求解L1范数最小化求解，可通过转化为LASSO的等价形式再通过近端梯度下降法求解。    
+     
+&nbsp;   
+
+收集读者对书籍的喜好程度可以实现用户分析，原始数据中往往有很多缺失数据（？表示），当信号（读书喜好数据）具有稀疏表示时，可以，可以通过压缩感知任务恢复采样信号。  
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210620174318.png)
