@@ -90,3 +90,4 @@ $$\mathbf{A}\boldsymbol{x}=\lambda \boldsymbol{x}$$
 下图为计算矩阵 A 特征值及对应特征向量的例子：
 
 ![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210611145950.png)
+
