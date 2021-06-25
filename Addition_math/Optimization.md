@@ -266,3 +266,79 @@ $$h_v\left( \boldsymbol{x} \right) =0,v=1,2,...p\left( p<n \right) \,\,$$
 
 
 ## 惩罚函数法
+根据约束函数的特点，构造惩罚项到目标函数中，将约束优化变成无约束优化问题。  
+
+### 内惩罚函数法/内点法
+内点法的通过构造惩罚项，使得迭代点都在可行域内,当迭代的点靠近边界时，通过惩罚项将该点拉回可行域。
+约束优化问题：
+$$\underset{\boldsymbol{x}}{\min}\,\,f\left( \boldsymbol{x} \right)$$
+$$s.t.    g_u\left( \boldsymbol{x} \right) \leqslant 0 ,u=1,2,...m$$
+构造的内罚函数为
+$$\varphi \left( \boldsymbol{x},r_k \right) =\,\,f\left( \boldsymbol{x} \right) -r_k\sum_{u=1}^m{\frac{1}{g_u\left( \boldsymbol{x} \right)}}$$
+其中$r_k$为内罚因子（$r_0$可取1~50），是递减的正数序列，$-r_k\sum_{u=1}^m{\frac{1}{g_u\left( \boldsymbol{x} \right)}}$为惩罚项。
+$$r_0>r_1...>r_k...>0$$
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210625134035.png) 
+
+内点法初始点的选取:
+* 1.原设计方案（原初始点）  
+* 2.随机产生  
+* 3.搜索法。先产生一个只满足部分约束的点，再迭代使得该点满足所有约束，如下图：
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210625140252.png)
+
+
+内点法特点：
+* 内罚函数在可行域内进行，得到的解总是可行的
+* 只能求解不等式约束优化问题，不能解等式约束优化问题
+* 初始点必须要在可行域内
+
+
+### 外惩罚函数法/外点法  
+外点法是一种从随机一点（一般在可行域外）出发，逐渐移动到可行区域的方法。
+对于约束优化问题：  
+$$\underset{\boldsymbol{x}\in R^n}{\min}\,\,f\left( \boldsymbol{x} \right)$$
+$$s.t.    g_u\left( \boldsymbol{x} \right) \leqslant 0 ,u=1,2,...m$$
+$$h_v\left( \boldsymbol{x} \right) =0,v=1,2,...p\left( p<n \right) \,\,$$
+构造外惩罚函数：
+$$\varphi \left( \boldsymbol{x},M_k \right) =f\left( \boldsymbol{x} \right) +M_k\left\{ \sum_{u=1}^m{\left( \max \left[ g_u\left( \boldsymbol{x} \right) ,0 \right] \right) ^2+\sum_{v=1}^p{\left( h_v\left( \boldsymbol{x} \right) \right) ^2}} \right\}$$
+其中$M_k$为外罚因子，$M_0<M_1<M_2...<M_k...\infty$为递增的正数序列，一般M0=1，递增系数c=5~8。  
+当x满足所有的约束条件时，惩罚项为0；当x不满足约束条件（在可行域外时），惩罚项起作用，且离约束边界越远，惩罚项的值越大，惩罚作用越明显。  
+终止准则（收敛准则）：
+* 1.$Q\leqslant \varepsilon _1\,\,=10^{-3}~10^{-4}$，Q为当前最优点代入多个约束函数中的最大值。
+* 2.$M>R\text{且}\left\| x*\left( M_{k+1} \right) -x*\left( M_k \right) \right\| \leqslant \varepsilon _2$，R为外罚因子控制量。   
+
+外点法的迭代图如下：
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210625165916.png)
+
+
+外点法的示例如下图：
+
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210625180418.png)
+
+
+
+外罚函数的特点：
+* 对初始点无要求，可在可行域外
+* 可解不等式优化和等式优化
+* 最后的解是可行域附近（外）的不可行解，只能近似。对此可设置约束裕度（$\varDelta>0$）,将边界缩小（$g_u\left( \boldsymbol{x} \right) +\varDelta \leqslant 0$），使得一句缩小后边界解出的点在原边界内。
+
+### 混合罚函数法
+混合罚函数法将内罚和外罚函数法进行结合，使得初始点不必在可行域内，且可以解等式和不等式问题。  
+混合罚函数法的一般形式为：  
+$$\varphi \left( \boldsymbol{x},M_k \right) =f\left( \boldsymbol{x} \right) -r_k\sum_{u=1}^m{\frac{1}{g_u\left( \boldsymbol{x} \right)}+\frac{1}{\sqrt{r_k}}}\sum_{v=1}^p{\left( h_v\left( \boldsymbol{x} \right) \right) ^2}$$
+其中罚因子$r_0>r_1>r_2...>r_k...>0$，逐渐趋于0.混合罚函数的迭代方法与外罚函数的迭代方法类似。
+
+# 遗传算法
+遗传算法基于适者生存，不适者淘汰的原理，对问题进行求解。遗传算法主要包括**选择**（将适应度更高的值赋予更大的选中概率），**交叉**（模拟生物杂交，将两个母体位于交叉位置后的字符串互换）和**变异**（模拟基因突变，以一定概率从种群中选取某个个体的某个基因进行翻转）
+
+
+
+遗传算法具有以下特点：
+* 遗传算法具有鲁棒性(稳定的收敛性)。
+* 对问题变量的编码集操作，具有适应性。
+* 从一组初始点出发，具有并行性，避免陷入局部最小点。
+* 仅使用目标函数，不用求导
+* 启发式搜索，不是简单的枚举，计算量与解题规模呈线性增长，避免了维数灾难。  
+
