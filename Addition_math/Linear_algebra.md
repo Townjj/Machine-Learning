@@ -1,4 +1,12 @@
-# Matrix
+## 矩阵  
+矩阵一种直观的解释时代表着空间的线性变化，例如：  
+  
+![](https://cdn.jsdelivr.net/gh/Townjj/Markdown-Images/Machine-Learning/20210630155904.png)
+
+右边的矩阵表示由两个x轴、y轴上的单位向量(1,0),(0,1)变换到(2,1)和(1,0)的线性空间变换。
+
+
+
 
 ## 加减法
 要求矩阵同型
@@ -45,6 +53,7 @@ $$\left( \mathbf{AB} \right) ^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}$$
 
 &nbsp;
 ## 线性相关
+线性相关是一个向量 b 能由向量组 A 内的向量线性表示，即向量b在向量A组成的空间中（A内为二维不共线向量时A组成一个平面）。  
 若存在一组数$k_1,k_2,...,k_m$, 使得向量组$\mathbf{A}$=（$a_1,a_2,...,a_m$）中存在:
 $$k_1a_1+k_2a_2+...+k_ma_m=0$$
 则称向量组$\mathbf{A}$ 是线性相关的，否则线性无关。  
@@ -83,7 +92,8 @@ $$\mathbf{A}^{\mathrm{T}}\mathbf{A}=\mathbf{E}\,\,\left( \text{即}\mathbf{A}^{-
 称矩阵A为正交矩阵，列向量都为单位向量，且凉凉正交。
 
 &nbsp;
-## 特征值
+## 特征向量与特征值
+特征向量是某矩阵代表的线性空间变换中方向不变的向量，特征值是该向量在线性空间变换后的长度变化。  
 若 A 为 n 阶矩阵，数 $\lambda$ 和 n 维向量 x 满足：
 $$\mathbf{A}\boldsymbol{x}=\lambda \boldsymbol{x}$$
 则称数 $\lambda$ 为 A 的特特征值， x 为 $\lambda$ 对应的特征向量。  
