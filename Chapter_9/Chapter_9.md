@@ -11,7 +11,7 @@ $$\left\{ C_l\,\, \mid \,\,l=1,2,...,k \right\}$$
 $$\lambda _j\in \left\{ 1,2,...,k \right\}$$
 将每个样本的簇标记整合成向量，得到样本集的聚类结果：
 $$\boldsymbol{\lambda }=\left( \lambda _1,\lambda _2,...,\lambda _m \right)$$    
-
+&nbsp;   
 ## 9.2 性能度量
 聚类性能度量亦称聚类有效性指标(validty index)，用以评价聚类结果的好坏，有些亦可作为聚类过程的优化目标。  
 + 外部指标(external index)  
@@ -68,12 +68,14 @@ $$VDM_p\left( a,b \right) =\sum_{i=1}^k{|\frac{m_{u,a,i}}{m_{u,a}}-\frac{m_{u,b,
 + 混合属性距离度量——结合闵可夫斯基距离和VDM距离，假设样本集有$n_{c}$个有序属性，$n-n_{c}$个无序属性，则有：
 $$MinkovDM_p\left( \boldsymbol{x}_{\boldsymbol{i}},\boldsymbol{x}_{\boldsymbol{j}} \right) =\left( \sum_{u=1}^{n_c}{|x_{iu}-x_{ju}|^p}+\sum_{u=n_c+1}^n{VDM_p\left( x_{iu}-x_{ju} \right)} \right) ^{\frac{1}{p}}$$
 
+&nbsp;  
 ## 9.4 原型聚类
 原型聚类（基于原型的聚类，prototype-based clustering）假设聚类结构可以通过一组原型刻画。原型聚类算法一般先对原型初始化，然后对原型进行更新迭代求解。以下几种为著名的原型聚类算法。  
 + **k 均值算法（k-means）**  
 k均值算法的优化目标是最小化样本集的平方误差：
 $$E=\sum_{i=1}^k{\sum_{x_i\in C_i}{||\boldsymbol{x}-\boldsymbol{\mu }_i||_{2}^{2}}}$$
 平方误差$E$描述了簇内样本围绕均值向量$\boldsymbol{\mu }_i$的紧密程度，平方误差$E$越小，簇内样本越精密。最小化平方误差$E$需要考察所有可能的簇划分（NP难问题），另一可行的方法是对均值向量初始化，采用贪心策略进行迭代优化，直到满足要求。  
+
 &nbsp; 
 + **学习向量量化(Learning Vector Quantization)**  
 LVQ假设样本带标记，试图找到一组原型向量来刻画聚类结构。  
@@ -99,23 +101,6 @@ $$p_M\left( \boldsymbol{x} \right) =\sum_{i=1}^k{\alpha _i}\cdot p\left( \boldsy
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 &nbsp; 
 ## 9.5 密度聚类  
 密度聚类（density-based clustering）假设聚类结构可以根据样本分布密度确定，并基于可连接样本不断扩展聚类簇。  
@@ -129,6 +114,7 @@ $$|N_{\epsilon}\left( \boldsymbol{x}_i \right) | \geqslant MinPts,\ \  \boldsymb
 密度可达：$\boldsymbol{x}_j$ 可通过一个或多个中间样本（链式间接直达）对 $\boldsymbol{x}_i$ 密度直达，称 $\boldsymbol{x}_j$ 可由 $\boldsymbol{x}_i$ 密度可达。  
 密度相连：样本 $\boldsymbol{x}_i$ 与 $\boldsymbol{x}_j$ 可通过中间样本 $\boldsymbol{x}_k$ 密度可达，称 $\boldsymbol{x}_i$ 与 $\boldsymbol{x}_j$ 密度相连。  
 簇：有密度可达关系导出的最大密度相连的样本集合。将所有与 $\boldsymbol{x}_i$ 密度相连的样本划分为一个簇。  
+
 &nbsp; 
 ## 9.6 层次聚类  
 层次聚类（hierarchical clustering）识图在不同层次对数据集进行划分，通过‘自底向上’的聚合策略或者‘自顶向下’的分拆策略来形成树状的聚类结构。 
